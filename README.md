@@ -1,13 +1,18 @@
-# AWS Architecture Health Check
+# AWS Cloud Health Check
 
-A Cloudflare Workers + D1 MVP for a lead-generating AWS architecture assessment.
+A Cloudflare Workers + D1 MVP for a lead-generating AWS assessment aimed at both non-expert SME users and experienced AWS practitioners.
 
 ## What it does
 
-- 21-question browser-based AWS health check
-- Scores Security, Reliability, Cost, Operations, Performance and Sustainability
+- Offers two assessment paths from the homepage:
+  - **Simple AWS Cloud Health Check** for business owners, IT generalists and less-experienced AWS users
+  - **Technical AWS Architecture Assessment** for experienced AWS engineers and architects
+- Uses 15 plain-English questions in the simple route
+- Retains the original 21-question technical assessment for advanced users
+- Scores six relevant categories for each path
 - Shows a prioritised result immediately
 - Captures lead details only after the user receives value
+- Captures commercial qualification data on the simple route, including approximate AWS spend, who manages AWS and the main concern
 - Stores leads and assessments in Cloudflare D1
 - Requires no AWS credentials
 
@@ -22,46 +27,32 @@ A Cloudflare Workers + D1 MVP for a lead-generating AWS architecture assessment.
 
 ## Deploy
 
-### 1. Install dependencies
+The Worker is connected to the `main` branch in GitHub and should automatically build and deploy when new commits are pushed.
+
+For a manual deployment:
 
 ```bash
 npm install
-```
-
-### 2. Log in to Cloudflare
-
-```bash
 npx wrangler login
+npx wrangler deploy
 ```
 
-### 3. Create the D1 database
+## Database
 
-```bash
-npx wrangler d1 create aws-health-check
-```
+The Worker uses the `aws-health-check` D1 database via the `DB` binding configured in `wrangler.jsonc`.
 
-Copy the returned `database_id` into `wrangler.jsonc`, replacing `REPLACE_WITH_D1_DATABASE_ID`.
-
-### 4. Apply the migration
+Apply migrations with:
 
 ```bash
 npm run db:migrate:remote
 ```
 
-### 5. Test locally
+For local development:
 
 ```bash
 npm run db:migrate:local
 npm run dev
 ```
-
-### 6. Deploy
-
-```bash
-npm run deploy
-```
-
-Cloudflare will return a `workers.dev` URL. A custom domain can then be attached in the Cloudflare dashboard.
 
 ## Next milestones
 

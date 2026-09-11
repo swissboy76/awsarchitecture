@@ -12,7 +12,7 @@
     {
       "binding": "DB",
       "database_name": "aws-health-check",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "database_id": "a5a85e59-81b3-40dc-8732-3a64878aeb36",
       "migrations_dir": "migrations"
     }
   ]

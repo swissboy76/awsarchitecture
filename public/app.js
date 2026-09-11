@@ -59,7 +59,14 @@ async function calculate(){
 
 function showResults(){
   $('#assessment').classList.add('hidden');
-  $('#results').classList.remove('hidden');
+  const results = $('#results');
+  results.classList.remove('hidden','score-strong','score-good','score-warning','score-risk');
+  results.classList.add(
+    state.result.overall >= 80 ? 'score-strong' :
+    state.result.overall >= 65 ? 'score-good' :
+    state.result.overall >= 50 ? 'score-warning' : 'score-risk'
+  );
+
   $('#overallScore').textContent = state.result.overall;
   $('#resultMode').textContent = state.mode === 'simple' ? 'YOUR AWS CLOUD HEALTH RESULT' : 'YOUR TECHNICAL ASSESSMENT RESULT';
   $('#scoreLabel').textContent = state.result.overall >= 80 ? 'Strong foundation' : state.result.overall >= 65 ? 'Good, with material gaps' : state.result.overall >= 50 ? 'Improvement required' : 'Priority attention recommended';

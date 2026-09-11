@@ -3,44 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CloudFixer | Free AWS Cloud Health Check</title>
-  <meta name="description" content="CloudFixer helps you find AWS security, backup, cost and architecture risks with a free cloud health check for both non-experts and technical teams." />
+  <title>CloudFIXER | Free AWS Cloud Health Check</title>
+  <meta name="description" content="CloudFIXER helps you find AWS security, backup, cost and architecture risks with a free cloud health check for both non-experts and technical teams." />
+  <link rel="icon" href="/cloudfixer-mark.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/styles.css" />
-  <style>
-    .brand:before{display:none!important}
-    .brand-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#2563eb 0%,#0ea5e9 58%,#f59e0b 100%);box-shadow:0 9px 22px rgba(37,99,235,.22);position:relative;overflow:hidden;flex:0 0 auto}
-    .brand-mark:after{content:"";position:absolute;width:28px;height:28px;border:2px solid rgba(255,255,255,.22);border-radius:50%;right:-10px;top:-9px}
-    .brand-mark span{color:#fff;font-size:.78rem;font-weight:950;letter-spacing:-.03em;position:relative;z-index:1}
-    .brand-lockup{display:flex;flex-direction:column;line-height:1.03}
-    .brand-name{font-size:1.35rem;font-weight:850;letter-spacing:-.045em;color:#102a43}
-    .brand-name strong{color:#e88705;font-weight:900}
-    .brand-product{margin-top:4px;font-size:.61rem;letter-spacing:.13em;text-transform:uppercase;color:#64748b;font-weight:800}
-    .brand-promise{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:24px;color:#526984;font-weight:750}
-    .brand-promise span,.brand-promise strong{padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid #dbe6f3}
-    .brand-promise strong{background:#fff4de;border-color:#f7cf88;color:#b86600}
-    footer strong{color:#102a43}
-    @media(max-width:520px){.brand-product{display:none}.brand-name{font-size:1.15rem}.brand-mark{width:38px;height:38px}.nav{padding-left:20px;padding-right:20px}.pill{font-size:.65rem}}
-  </style>
 </head>
 <body>
   <header class="nav">
     <a class="brand" href="/" aria-label="CloudFixer home">
-      <span class="brand-mark" aria-hidden="true"><span>CF</span></span>
+      <img class="brand-icon" src="/cloudfixer-mark.svg" alt="" aria-hidden="true" />
       <span class="brand-lockup">
-        <span class="brand-name"><span>Cloud</span><strong>Fixer</strong></span>
-        <span class="brand-product">AWS Health Check</span>
+        <span class="brand-name">Cloud<strong>FIXER</strong></span>
+        <span class="brand-product">AWS Cloud Health Check</span>
       </span>
     </a>
     <span class="pill">Free assessment</span>
   </header>
   <main>
     <section class="hero" id="home">
-      <div class="eyebrow">CLOUDFIXER · AWS HEALTH & ARCHITECTURE ASSESSMENT</div>
+      <div class="eyebrow">AWS HEALTH & ARCHITECTURE ASSESSMENT</div>
       <h1>Find the weak spots in your AWS setup.</h1>
-      <p class="lede">CloudFixer gives you a clear view of AWS security, backups, costs and operational risk. You do not need to be an AWS expert — choose the assessment that matches your experience and we will show you what deserves attention first.</p>
+      <p class="lede">CloudFIXER gives you a clear view of AWS security, backups, costs and operational risk. You do not need to be an AWS expert — choose the assessment that matches your experience and we will show you what deserves attention first.</p>
 
-      <div class="brand-promise" aria-label="CloudFixer promise">
-        <span>Find it.</span><span>Understand it.</span><strong>Fix it.</strong>
+      <div class="brand-promise" aria-label="CloudFixer brand promise">
+        <span>Clearer cloud.</span><strong>Bigger possibilities.</strong>
       </div>
 
       <div class="path-grid">
@@ -95,7 +81,7 @@
       <div id="resultAction" class="result-action"></div>
 
       <div class="leadbox">
-        <div><h3>Save your CloudFixer assessment</h3><p id="leadIntro">Tell us a little about your AWS use so we can put the result in context and keep this assessment for you.</p></div>
+        <div><h3>Save your CloudFIXER assessment</h3><p id="leadIntro">Tell us a little about your AWS use so we can put the result in context and keep this assessment for you.</p></div>
         <form id="leadForm">
           <div id="qualificationFields" class="qualification hidden">
             <label>Approximate monthly AWS spend
@@ -134,14 +120,14 @@
           </div>
           <div class="form-grid"><input id="name" placeholder="Name" autocomplete="name"><input id="company" placeholder="Company" autocomplete="organization"></div>
           <input id="email" type="email" placeholder="Work email" autocomplete="email" required>
-          <label class="check"><input id="marketingConsent" type="checkbox"> <span>Send me occasional CloudFixer AWS architecture and cost-optimisation updates. I can unsubscribe at any time.</span></label>
+          <label class="check"><input id="marketingConsent" type="checkbox"> <span>Send me occasional CloudFIXER AWS architecture and cost-optimisation updates. I can unsubscribe at any time.</span></label>
           <button class="primary" type="submit">Save my assessment</button>
           <p id="formStatus" class="status"></p>
         </form>
       </div>
     </section>
   </main>
-  <footer><strong>CloudFixer</strong> · Independent AWS health and architecture assessment · Not affiliated with Amazon Web Services.</footer>
+  <footer><strong>CloudFIXER</strong> · Clearer Cloud. Bigger Possibilities. · Independent AWS health and architecture assessment · Not affiliated with Amazon Web Services.</footer>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

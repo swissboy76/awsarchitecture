@@ -68,6 +68,17 @@ function legacyScores(mode, scores) {
     };
   }
 
+  if (mode === 'ai') {
+    return {
+      security: scores.readiness ?? 0,
+      reliability: scores.knowledge ?? 0,
+      cost: scores.process ?? 0,
+      operations: scores.data ?? 0,
+      performance: scores.customers ?? 0,
+      sustainability: scores.readiness ?? 0
+    };
+  }
+
   return {
     security: scores.security ?? 0,
     reliability: scores.recovery ?? 0,
@@ -76,6 +87,12 @@ function legacyScores(mode, scores) {
     performance: scores.continuity ?? 0,
     sustainability: scores.confidence ?? 0
   };
+}
+
+async function serveAsset(request, env, pathname) {
+  const url = new URL(request.url);
+  url.pathname = pathname;
+  return env.ASSETS.fetch(new Request(url.toString(), request));
 }
 
 export default {
@@ -145,6 +162,13 @@ export default {
     }
 
     if (url.pathname.startsWith('/api/')) return json({ error: 'Not found' }, 404);
+
+    if (url.pathname === '/' || url.pathname === '/home') return serveAsset(request, env, '/home.html');
+    if (url.pathname === '/aws' || url.pathname === '/aws/') return serveAsset(request, env, '/index.html');
+    if (url.pathname === '/ai' || url.pathname === '/ai/') return serveAsset(request, env, '/ai.html');
+    if (url.pathname === '/cloud-readiness' || url.pathname === '/cloud-readiness/') return serveAsset(request, env, '/cloud-readiness.html');
+    if (url.pathname === '/cloud-migration' || url.pathname === '/cloud-migration/') return serveAsset(request, env, '/cloud-migration.html');
+
     return env.ASSETS.fetch(request);
   }
 };

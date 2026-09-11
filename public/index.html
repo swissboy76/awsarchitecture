@@ -3,17 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Free AWS Cloud Health Check</title>
-  <meta name="description" content="Find out whether your AWS setup is secure, recoverable and under control. Choose a simple business-friendly check or a more technical architecture assessment." />
+  <title>CloudFixer | Free AWS Cloud Health Check</title>
+  <meta name="description" content="CloudFixer helps you find AWS security, backup, cost and architecture risks with a free cloud health check for both non-experts and technical teams." />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <header class="nav"><a class="brand" href="/">AWS Cloud Health Check</a><span class="pill">Free assessment</span></header>
+  <header class="nav">
+    <a class="brand" href="/" aria-label="CloudFixer home">
+      <span class="brand-mark" aria-hidden="true"><span>CF</span></span>
+      <span class="brand-lockup">
+        <span class="brand-name"><span>Cloud</span><strong>Fixer</strong></span>
+        <span class="brand-product">AWS Health Check</span>
+      </span>
+    </a>
+    <span class="pill">Free assessment</span>
+  </header>
   <main>
     <section class="hero" id="home">
-      <div class="eyebrow">AWS HEALTH & ARCHITECTURE ASSESSMENT</div>
-      <h1>How healthy is your AWS setup?</h1>
-      <p class="lede">You do not need to be an AWS expert to find out. Choose the assessment that best matches your experience and we will highlight the areas worth looking at first.</p>
+      <div class="eyebrow">CLOUDFIXER · AWS HEALTH & ARCHITECTURE ASSESSMENT</div>
+      <h1>Find the weak spots in your AWS setup.</h1>
+      <p class="lede">CloudFixer gives you a clear view of AWS security, backups, costs and operational risk. You do not need to be an AWS expert — choose the assessment that matches your experience and we will show you what deserves attention first.</p>
+
+      <div class="brand-promise" aria-label="CloudFixer promise">
+        <span>Find it.</span><span>Understand it.</span><strong>Fix it.</strong>
+      </div>
 
       <div class="path-grid">
         <article class="path-card featured">
@@ -67,7 +80,7 @@
       <div id="resultAction" class="result-action"></div>
 
       <div class="leadbox">
-        <div><h3>Save your assessment</h3><p id="leadIntro">Tell us a little about your AWS use so we can put the result in context and keep this assessment for you.</p></div>
+        <div><h3>Save your CloudFixer assessment</h3><p id="leadIntro">Tell us a little about your AWS use so we can put the result in context and keep this assessment for you.</p></div>
         <form id="leadForm">
           <div id="qualificationFields" class="qualification hidden">
             <label>Approximate monthly AWS spend
@@ -106,14 +119,14 @@
           </div>
           <div class="form-grid"><input id="name" placeholder="Name" autocomplete="name"><input id="company" placeholder="Company" autocomplete="organization"></div>
           <input id="email" type="email" placeholder="Work email" autocomplete="email" required>
-          <label class="check"><input id="marketingConsent" type="checkbox"> <span>Send me occasional AWS architecture and cost-optimisation updates. I can unsubscribe at any time.</span></label>
+          <label class="check"><input id="marketingConsent" type="checkbox"> <span>Send me occasional CloudFixer AWS architecture and cost-optimisation updates. I can unsubscribe at any time.</span></label>
           <button class="primary" type="submit">Save my assessment</button>
           <p id="formStatus" class="status"></p>
         </form>
       </div>
     </section>
   </main>
-  <footer>Independent AWS health and architecture assessment prototype · Not affiliated with Amazon Web Services.</footer>
+  <footer><strong>CloudFixer</strong> · Independent AWS health and architecture assessment · Not affiliated with Amazon Web Services.</footer>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

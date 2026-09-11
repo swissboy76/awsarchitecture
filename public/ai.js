@@ -57,17 +57,13 @@ function renderQuestion(){
 function choose(value){
   const q = state.questions[state.index];
   state.answers[q.id] = value;
-
-  document.querySelectorAll('.answer').forEach(btn => {
-    btn.classList.toggle('selected', btn.dataset.value === value);
-  });
+  document.querySelectorAll('.answer').forEach(btn => btn.classList.toggle('selected', btn.dataset.value === value));
   $('#nextBtn').disabled = false;
 }
 
 async function nextQuestion(){
   const q = state.questions[state.index];
   if(!state.answers[q.id]) return;
-
   if(state.index < state.questions.length - 1){
     state.index++;
     renderQuestion();
@@ -98,11 +94,11 @@ async function calculate(){
   showResults();
 }
 
-function scoreLabel(score){
-  if(score >= 75) return 'Lots of practical opportunities to explore';
-  if(score >= 50) return 'Several useful opportunities stand out';
-  if(score >= 25) return 'A few focused opportunities are worth a look';
-  return 'Your best opportunities may be quite specific';
+function opportunityLabel(count){
+  if(count >= 5) return 'You have several strong places to start';
+  if(count >= 3) return 'A few strong opportunities stand out';
+  if(count >= 1) return 'A focused opportunity stands out';
+  return 'No obvious broad opportunity stood out';
 }
 
 function paidOffersHtml(){
@@ -135,18 +131,22 @@ function paidOffersHtml(){
 function showResults(){
   $('#assessment').classList.add('hidden');
   const results = $('#results');
+  const strong = state.result.strongOpportunityCount ?? 0;
   results.classList.remove('hidden','score-strong','score-good','score-warning','score-risk');
-  results.classList.add(
-    state.result.overall >= 75 ? 'score-strong' :
-    state.result.overall >= 50 ? 'score-good' :
-    state.result.overall >= 25 ? 'score-warning' : 'score-risk'
-  );
+  results.classList.add(strong >= 5 ? 'score-strong' : strong >= 3 ? 'score-good' : strong >= 1 ? 'score-warning' : 'score-risk');
 
-  $('#overallScore').textContent = state.result.overall;
-  $('#scoreLabel').textContent = scoreLabel(state.result.overall);
-  $('#resultSummary').textContent = 'This is an opportunity score, not a test of how advanced your business is. A higher score simply means your answers revealed more repetitive work, hard-to-find knowledge or information-heavy tasks where AI or automation may be useful.';
-  $('#categoryScores').innerHTML = Object.entries(state.result.scores)
-    .map(([k,v]) => `<article><span>${labelFor(k)}</span><strong>${v}</strong><div class="mini"><i style="width:${v}%"></i></div></article>`)
+  $('#overallScore').textContent = strong;
+  const unit = document.querySelector('.score-hero>div:first-child small');
+  if(unit) unit.textContent = strong === 1 ? 'strong opportunity' : 'strong opportunities';
+  $('#scoreLabel').textContent = opportunityLabel(strong);
+  $('#resultSummary').textContent = 'These are areas where your answers suggest there is repeated work, hard-to-find knowledge or information-heavy activity worth exploring. This is not a maturity score.';
+
+  const counts = state.result.categoryOpportunityCounts || {};
+  $('#categoryScores').innerHTML = state.categories
+    .map(c => {
+      const count = counts[c.key] || 0;
+      return `<article><span>${c.label}</span><strong>${count}</strong><div style="font-size:.78rem;color:#807678;margin-top:4px">${count === 1 ? 'strong signal' : 'strong signals'}</div></article>`;
+    })
     .join('');
 
   const findings = state.result.findings.length ? state.result.findings : [{severity:'low',title:'No obvious broad opportunity stood out from these questions.',recommendation:'That does not mean AI cannot help. A useful next step would be to look closely at one specific process that feels slow, repetitive or difficult to hand over.'}];

@@ -8,6 +8,19 @@ const options = [
   ['unknown','Not sure','I do not know']
 ];
 
+function addProfessionalTrustSignal(){
+  const hero = $('#home');
+  const lede = hero?.querySelector('.lede');
+  if(!hero || !lede || hero.querySelector('.professional-trust')) return;
+  const trust = document.createElement('div');
+  trust.className = 'professional-trust';
+  trust.style.cssText = 'margin:22px 0 0;border-left:3px solid var(--wine);padding:14px 17px;background:#faf6f5;border-radius:0 10px 10px 0;color:#746a6c;max-width:840px';
+  trust.innerHTML = '<strong style="color:var(--wine-dark)">Built by experienced AWS and cloud professionals.</strong> The questions and recommendations reflect real cloud architecture, security, resilience, cost and operational experience — not a generic online checklist.';
+  lede.insertAdjacentElement('afterend', trust);
+}
+
+addProfessionalTrustSignal();
+
 async function loadQuestions(mode){
   const r = await fetch(`/api/questions?mode=${encodeURIComponent(mode)}`);
   if(!r.ok) throw new Error('Unable to load assessment');
@@ -66,7 +79,7 @@ function paidOffersHtml(){
       <div style="margin-bottom:14px">
         <div class="eyebrow">WANT THE FULL PLAN?</div>
         <h3 style="margin:.35rem 0;color:var(--wine-dark)">Turn your free result into clear next steps.</h3>
-        <p style="margin:0;color:#766d6f">Low-cost, automatically generated reports are designed to be an easy next step for SMEs — no sales call required.</p>
+        <p style="margin:0;color:#766d6f">Low-cost reports for SMEs, built from the same assessment approach used by experienced AWS and cloud professionals — no sales call required.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:13px">
         <article style="border:1px solid #dbc7c9;background:#fff;border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(74,31,35,.045)">

@@ -1,4 +1,5 @@
 import { getAssessment } from './questions.js';
+import { aiAssessment, scoreAiAssessment } from './aiQuestions.js';
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
@@ -8,6 +9,8 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), {
 const scoreMap = { yes: 1, partial: 0.5, no: 0, unknown: 0.25 };
 
 function scoreAssessment(mode, answers = {}) {
+  if (mode === 'ai') return scoreAiAssessment(answers);
+
   const assessment = getAssessment(mode);
   const categoryKeys = assessment.categories.map(c => c.key);
   const totals = Object.fromEntries(categoryKeys.map(key => [key, { got: 0, possible: 0 }]));
@@ -70,12 +73,12 @@ function legacyScores(mode, scores) {
 
   if (mode === 'ai') {
     return {
-      security: scores.readiness ?? 0,
+      security: scores.starting ?? 0,
       reliability: scores.knowledge ?? 0,
       cost: scores.process ?? 0,
-      operations: scores.data ?? 0,
+      operations: scores.information ?? 0,
       performance: scores.customers ?? 0,
-      sustainability: scores.readiness ?? 0
+      sustainability: scores.starting ?? 0
     };
   }
 
@@ -100,7 +103,8 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === '/api/questions' && request.method === 'GET') {
-      const assessment = getAssessment(url.searchParams.get('mode') || 'simple');
+      const requestedMode = url.searchParams.get('mode') || 'simple';
+      const assessment = requestedMode === 'ai' ? aiAssessment : getAssessment(requestedMode);
       return json({
         mode: assessment.id,
         title: assessment.title,

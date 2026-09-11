@@ -57,6 +57,36 @@ async function calculate(){
   showResults();
 }
 
+function paidOffersHtml(){
+  const technical = state.mode === 'technical';
+  const actionTitle = technical ? 'AWS Architecture Action Plan' : 'AWS Cloud Action Plan';
+  const deeperTitle = technical ? 'Detailed Architecture Review' : 'Detailed Cloud Review';
+  return `
+    <section class="paid-offers" aria-label="Paid CloudFIXER reports" style="margin-top:30px">
+      <div style="margin-bottom:14px">
+        <div class="eyebrow">WANT THE FULL PLAN?</div>
+        <h3 style="margin:.35rem 0;color:var(--wine-dark)">Turn your free result into clear next steps.</h3>
+        <p style="margin:0;color:#766d6f">Low-cost, automatically generated reports are designed to be an easy next step for SMEs — no sales call required.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:13px">
+        <article style="border:1px solid #dbc7c9;background:#fff;border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(74,31,35,.045)">
+          <div class="eyebrow">MOST POPULAR</div>
+          <h3 style="margin:8px 0 3px;color:var(--wine-dark)">${actionTitle}</h3>
+          <div style="font-size:2rem;font-weight:750;color:var(--wine);margin-bottom:10px">£9.99</div>
+          <p style="color:#766d6f;margin-top:0">Your prioritised findings, what they mean for the business, quick wins and a practical do-now / do-next action list.</p>
+          <span style="display:inline-block;padding:7px 10px;border-radius:999px;background:#f5eeee;color:var(--wine);font-size:.72rem;font-weight:800">Checkout being connected</span>
+        </article>
+        <article style="border:1px solid var(--line);background:#faf8f7;border-radius:14px;padding:20px">
+          <div class="eyebrow">GO DEEPER</div>
+          <h3 style="margin:8px 0 3px;color:var(--wine-dark)">${deeperTitle}</h3>
+          <div style="font-size:2rem;font-weight:750;color:var(--wine-dark);margin-bottom:10px">£19.99</div>
+          <p style="color:#766d6f;margin-top:0">Everything in the Action Plan plus deeper recommendations, priorities, dependencies and a simple improvement roadmap.</p>
+          <span style="display:inline-block;padding:7px 10px;border-radius:999px;background:#f1eeee;color:#756c6e;font-size:.72rem;font-weight:800">Checkout being connected</span>
+        </article>
+      </div>
+    </section>`;
+}
+
 function showResults(){
   $('#assessment').classList.add('hidden');
   const results = $('#results');
@@ -86,6 +116,8 @@ function showResults(){
     $('#leadIntro').textContent = 'Save this technical assessment and join the early-access list for the detailed automated architecture report.';
   }
 
+  results.querySelector('.paid-offers')?.remove();
+  $('#resultAction').insertAdjacentHTML('afterend', paidOffersHtml());
   window.scrollTo({top:0,behavior:'smooth'});
 }
 

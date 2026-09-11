@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Free AI Opportunity Assessment | CloudFIXER</title>
+  <meta name="description" content="A free plain-English AI opportunity assessment for SMEs. Find where AI could save time, improve processes and make business knowledge easier to use." />
+  <link rel="icon" href="/cloudfixer-mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .nav{gap:24px}.brand-ai{display:block;line-height:0}.brand-ai img{display:block;width:360px;max-width:58vw;height:auto}.nav-actions{display:flex;gap:10px;align-items:center}.nav-actions a{text-decoration:none}.ai-hero{max-width:970px;padding:64px 0 52px}.ai-hero h1{font-size:clamp(3.1rem,7.6vw,6.2rem);line-height:.95;letter-spacing:-.065em;margin:.2em 0;color:var(--wine-dark);font-weight:650}.ai-hero h1:after{content:"";display:block;width:86px;height:3px;background:var(--wine);margin-top:24px}.ai-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:34px 0}.ai-benefits article{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px}.ai-benefits strong{display:block;color:var(--wine-dark);margin-bottom:5px}.ai-benefits span{color:#766d6f;font-size:.9rem}.start-box{margin-top:26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}.start-box small{color:#84797b}.opportunity-note{background:#faf6f5;border:1px solid #eadcdd;border-radius:14px;padding:19px;margin:24px 0;color:#6f6466}.opportunity-note strong{color:var(--wine-dark)}
+    @media(max-width:760px){.ai-benefits{grid-template-columns:1fr}.ai-hero{padding-top:38px}.brand-ai img{width:280px;max-width:66vw}.nav-actions .secondary{display:none}}
+    @media(max-width:520px){.nav{padding-left:18px;padding-right:18px}.brand-ai img{width:230px;max-width:68vw}.pill{font-size:.58rem}.ai-hero h1{font-size:3.05rem}}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand-ai" href="/" aria-label="CloudFIXER home"><img src="/cloudfixer-logo.svg" alt="CloudFIXER — Clearer Cloud. Bigger Possibilities." /></a>
+    <div class="nav-actions"><a class="secondary" href="/">All services</a><span class="pill">Free assessment</span></div>
+  </header>
+
+  <main>
+    <section class="ai-hero" id="home">
+      <div class="eyebrow">FREE AI OPPORTUNITY ASSESSMENT FOR SMEs</div>
+      <h1>What can AI do for your business?</h1>
+      <p class="lede">Most businesses have processes that could be faster and knowledge that could be easier to use. This short assessment helps identify where AI could save time, improve consistency and make better use of the information you already have.</p>
+
+      <div class="ai-benefits">
+        <article><strong>Improve processes</strong><span>Spot repetitive admin, document handling and manual work that may be suitable for AI assistance.</span></article>
+        <article><strong>Unlock knowledge</strong><span>Find where staff struggle to locate procedures, policies, product information or expertise.</span></article>
+        <article><strong>Start sensibly</strong><span>Identify opportunities worth exploring before spending money on tools or large AI projects.</span></article>
+      </div>
+
+      <div class="opportunity-note"><strong>No AI knowledge required.</strong> The questions are about how your business works today, not about models, prompts or technical architecture.</div>
+      <div class="start-box"><button class="primary" id="startAi">Start my free assessment</button><small>About 5 minutes · No technical information required</small></div>
+    </section>
+
+    <section id="assessment" class="panel hidden">
+      <div class="assessment-head">
+        <div><div class="eyebrow">AI OPPORTUNITY ASSESSMENT</div><h2 id="assessmentTitle">Free AI Opportunity Assessment</h2></div>
+        <button class="text-btn" id="restartBtn">Start again</button>
+      </div>
+      <p id="assessmentDescription" class="question-help"></p>
+      <div class="progress-wrap"><div class="progress-meta"><span id="progressText">Question 1</span><span id="progressPct">0%</span></div><div class="progress"><div id="progressBar"></div></div></div>
+      <div id="questionCard"></div>
+    </section>
+
+    <section id="results" class="panel hidden">
+      <div class="eyebrow">YOUR AI OPPORTUNITY RESULT</div>
+      <div class="score-hero"><div><span id="overallScore">0</span><small>/100</small></div><div><h2 id="scoreLabel">AI readiness</h2><p id="resultSummary"></p></div></div>
+      <div id="categoryScores" class="score-grid"></div>
+      <h3>Areas worth exploring first</h3>
+      <div id="findings" class="findings"></div>
+      <div class="result-action"><strong>Your best AI project may be much smaller than you think.</strong><span>The next step is to turn the strongest opportunities into a short list of practical use cases, expected benefits and sensible controls.</span></div>
+
+      <div class="leadbox">
+        <div><h3>Save your assessment</h3><p>Tell us a little about your business so we can put the result in context and identify which opportunities may be worth exploring first.</p></div>
+        <form id="leadForm">
+          <div class="qualification">
+            <label>Approximate number of employees
+              <select id="employees"><option value="">Prefer not to say</option><option value="1-5">1–5</option><option value="6-20">6–20</option><option value="21-50">21–50</option><option value="51-100">51–100</option><option value="101-250">101–250</option><option value="250-plus">250+</option></select>
+            </label>
+            <label>What would you most like AI to improve?
+              <select id="aiGoal"><option value="">Not sure yet</option><option value="save-time">Save staff time</option><option value="knowledge">Make business knowledge easier to use</option><option value="customers">Improve customer service</option><option value="reporting">Improve reporting / analysis</option><option value="growth">Support sales or growth</option><option value="other">Something else</option></select>
+            </label>
+            <label>Are you already using AI in the business?
+              <select id="aiUse"><option value="">Select an option</option><option value="none">Not really</option><option value="individual">A few staff use tools individually</option><option value="some">We have a few business uses already</option><option value="established">AI is already part of several processes</option></select>
+            </label>
+          </div>
+          <div class="form-grid"><input id="name" placeholder="Name" autocomplete="name"><input id="company" placeholder="Company" autocomplete="organization"></div>
+          <input id="email" type="email" placeholder="Work email" autocomplete="email" required>
+          <label class="check"><input id="marketingConsent" type="checkbox"> <span>Send me occasional CloudFIXER updates about practical AI and cloud improvements for SMEs. I can unsubscribe at any time.</span></label>
+          <button class="primary" type="submit">Save my assessment</button>
+          <p id="formStatus" class="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer><strong>CloudFIXER</strong> · Practical AI and cloud help for SMEs.</footer>
+  <script type="module" src="/ai.js"></script>
+</body>
+</html>

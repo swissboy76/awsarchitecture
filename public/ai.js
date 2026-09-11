@@ -28,6 +28,9 @@ function labelFor(key){
 function renderQuestion(){
   const q = state.questions[state.index];
   const pct = Math.round((state.index / state.questions.length) * 100);
+  const hasAnswer = Boolean(state.answers[q.id]);
+  const isLast = state.index === state.questions.length - 1;
+
   $('#progressText').textContent = `Question ${state.index + 1} of ${state.questions.length}`;
   $('#progressPct').textContent = `${pct}%`;
   $('#progressBar').style.width = `${pct}%`;
@@ -35,21 +38,52 @@ function renderQuestion(){
     <div class="eyebrow">${labelFor(q.category).toUpperCase()}</div>
     <h2>${q.text}</h2>
     <p class="question-help">${q.help}</p>
-    <div class="answers">${options.map(([v,t,s]) => `<button class="answer ${state.answers[q.id]===v?'selected':''}" data-value="${v}"><strong>${t}</strong><span>${s}</span></button>`).join('')}</div>
-    <div class="question-nav"><button class="ghost" id="backBtn" ${state.index===0?'disabled':''}>Back</button></div>`;
+    <div class="answers">${options.map(([v,t,s]) => `<button class="answer ${state.answers[q.id]===v?'selected':''}" data-value="${v}" type="button"><strong>${t}</strong><span>${s}</span></button>`).join('')}</div>
+    <div class="question-nav" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <button class="ghost" id="backBtn" type="button" ${state.index===0?'disabled':''}>Back</button>
+      <button class="primary" id="nextBtn" type="button" ${hasAnswer?'':'disabled'}>${isLast ? 'See my result' : 'Next'}</button>
+    </div>`;
+
   document.querySelectorAll('.answer').forEach(btn => btn.addEventListener('click', () => choose(btn.dataset.value)));
-  $('#backBtn').addEventListener('click', () => { if(state.index>0){ state.index--; renderQuestion(); } });
+  $('#backBtn').addEventListener('click', () => {
+    if(state.index > 0){
+      state.index--;
+      renderQuestion();
+    }
+  });
+  $('#nextBtn').addEventListener('click', nextQuestion);
 }
 
-async function choose(value){
+function choose(value){
   const q = state.questions[state.index];
   state.answers[q.id] = value;
+
+  document.querySelectorAll('.answer').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.value === value);
+  });
+  $('#nextBtn').disabled = false;
+}
+
+async function nextQuestion(){
+  const q = state.questions[state.index];
+  if(!state.answers[q.id]) return;
+
   if(state.index < state.questions.length - 1){
     state.index++;
     renderQuestion();
     return;
   }
-  await calculate();
+
+  const nextBtn = $('#nextBtn');
+  nextBtn.disabled = true;
+  nextBtn.textContent = 'Calculating…';
+  try{
+    await calculate();
+  }catch{
+    nextBtn.disabled = false;
+    nextBtn.textContent = 'See my result';
+    alert('Unable to calculate your result. Please try again.');
+  }
 }
 
 async function calculate(){

@@ -3,39 +3,107 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Free AWS Architecture Health Check</title>
-  <meta name="description" content="Score your AWS environment across security, reliability, cost, operations, performance and sustainability in about five minutes." />
+  <title>Free AWS Cloud Health Check</title>
+  <meta name="description" content="Find out whether your AWS setup is secure, recoverable and under control. Choose a simple business-friendly check or a more technical architecture assessment." />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <header class="nav"><a class="brand" href="/">AWS Architecture Health Check</a><span class="pill">Free assessment</span></header>
+  <header class="nav"><a class="brand" href="/">AWS Cloud Health Check</a><span class="pill">Free assessment</span></header>
   <main>
     <section class="hero" id="home">
-      <div class="eyebrow">AWS ARCHITECTURE ASSESSMENT</div>
-      <h1>How healthy is your AWS environment?</h1>
-      <p class="lede">Get a practical score across security, resilience, cost, operations, performance and sustainability — and see the issues worth fixing first.</p>
-      <div class="cta-row"><button class="primary" id="startBtn">Start free assessment</button><span>About 5 minutes · No AWS access required</span></div>
+      <div class="eyebrow">AWS HEALTH & ARCHITECTURE ASSESSMENT</div>
+      <h1>How healthy is your AWS setup?</h1>
+      <p class="lede">You do not need to be an AWS expert to find out. Choose the assessment that best matches your experience and we will highlight the areas worth looking at first.</p>
+
+      <div class="path-grid">
+        <article class="path-card featured">
+          <div class="path-badge">Recommended for most SMEs</div>
+          <h2>I use AWS, but I'm not an AWS expert</h2>
+          <p>For business owners, IT generalists, developers and teams that inherited or rely on an AWS setup.</p>
+          <ul>
+            <li>Plain-English questions</li>
+            <li>No AWS terminology required</li>
+            <li>Security, backups, costs and business risk</li>
+          </ul>
+          <button class="primary mode-btn" data-mode="simple">Start simple health check</button>
+        </article>
+
+        <article class="path-card">
+          <div class="path-badge muted">Technical route</div>
+          <h2>I'm comfortable managing AWS</h2>
+          <p>For engineers, architects and technical teams that understand AWS services and architecture concepts.</p>
+          <ul>
+            <li>Detailed technical controls</li>
+            <li>Architecture and operations focus</li>
+            <li>Security, reliability, cost and performance</li>
+          </ul>
+          <button class="secondary mode-btn" data-mode="technical">Take technical assessment</button>
+        </article>
+      </div>
+
       <div class="trust-grid">
-        <article><strong>6</strong><span>architecture dimensions</span></article>
-        <article><strong>21</strong><span>targeted questions</span></article>
-        <article><strong>0</strong><span>credentials required</span></article>
+        <article><strong>2</strong><span>assessment routes</span></article>
+        <article><strong>~5</strong><span>minutes to complete</span></article>
+        <article><strong>0</strong><span>AWS credentials required</span></article>
       </div>
     </section>
 
     <section id="assessment" class="panel hidden">
+      <div class="assessment-head">
+        <div><div class="eyebrow" id="assessmentMode">ASSESSMENT</div><h2 id="assessmentTitle">AWS assessment</h2></div>
+        <button class="text-btn" id="changePathBtn">Change path</button>
+      </div>
+      <p id="assessmentDescription" class="question-help"></p>
       <div class="progress-wrap"><div class="progress-meta"><span id="progressText">Question 1</span><span id="progressPct">0%</span></div><div class="progress"><div id="progressBar"></div></div></div>
       <div id="questionCard"></div>
     </section>
 
     <section id="results" class="panel hidden">
-      <div class="eyebrow">YOUR RESULT</div>
-      <div class="score-hero"><div><span id="overallScore">0</span><small>/100</small></div><div><h2 id="scoreLabel">Architecture score</h2><p>Use this as a prioritisation signal, not a formal AWS Well-Architected Review.</p></div></div>
+      <div class="eyebrow" id="resultMode">YOUR RESULT</div>
+      <div class="score-hero"><div><span id="overallScore">0</span><small>/100</small></div><div><h2 id="scoreLabel">Cloud health score</h2><p id="resultSummary"></p></div></div>
       <div id="categoryScores" class="score-grid"></div>
       <h3>Highest-priority findings</h3>
       <div id="findings" class="findings"></div>
+      <div id="resultAction" class="result-action"></div>
+
       <div class="leadbox">
-        <div><h3>Save your result</h3><p>Enter your details to save this assessment and become an early-access customer for the detailed automated report.</p></div>
+        <div><h3>Save your assessment</h3><p id="leadIntro">Tell us a little about your AWS use so we can put the result in context and keep this assessment for you.</p></div>
         <form id="leadForm">
+          <div id="qualificationFields" class="qualification hidden">
+            <label>Approximate monthly AWS spend
+              <select id="awsSpend">
+                <option value="">Prefer not to say / don't know</option>
+                <option value="under-100">Under £100</option>
+                <option value="100-500">£100–£500</option>
+                <option value="500-2000">£500–£2,000</option>
+                <option value="2000-10000">£2,000–£10,000</option>
+                <option value="10000-plus">£10,000+</option>
+              </select>
+            </label>
+            <label>Who mainly looks after AWS?
+              <select id="awsManager">
+                <option value="">Select an option</option>
+                <option value="me">Me</option>
+                <option value="internal-it">An internal IT person or team</option>
+                <option value="external-it">An external IT company / MSP</option>
+                <option value="developer">A developer or software company</option>
+                <option value="nobody">Nobody in particular</option>
+                <option value="unsure">Not sure</option>
+              </select>
+            </label>
+            <label>What concerns you most?
+              <select id="mainConcern">
+                <option value="">Select an option</option>
+                <option value="security">Security</option>
+                <option value="cost">AWS costs</option>
+                <option value="backups">Backups and recovery</option>
+                <option value="reliability">Reliability / outages</option>
+                <option value="knowledge">Lack of internal AWS knowledge</option>
+                <option value="change">A planned migration or major change</option>
+                <option value="confidence">I'm not sure whether it is set up correctly</option>
+              </select>
+            </label>
+          </div>
           <div class="form-grid"><input id="name" placeholder="Name" autocomplete="name"><input id="company" placeholder="Company" autocomplete="organization"></div>
           <input id="email" type="email" placeholder="Work email" autocomplete="email" required>
           <label class="check"><input id="marketingConsent" type="checkbox"> <span>Send me occasional AWS architecture and cost-optimisation updates. I can unsubscribe at any time.</span></label>
@@ -45,7 +113,7 @@
       </div>
     </section>
   </main>
-  <footer>Independent AWS architecture assessment prototype · Not affiliated with Amazon Web Services.</footer>
+  <footer>Independent AWS health and architecture assessment prototype · Not affiliated with Amazon Web Services.</footer>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

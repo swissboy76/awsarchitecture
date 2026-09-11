@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Free AWS Architecture Health Check</title>
+  <meta name="description" content="Score your AWS environment across security, reliability, cost, operations, performance and sustainability in about five minutes." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="nav"><a class="brand" href="/">AWS Architecture Health Check</a><span class="pill">Free assessment</span></header>
+  <main>
+    <section class="hero" id="home">
+      <div class="eyebrow">AWS ARCHITECTURE ASSESSMENT</div>
+      <h1>How healthy is your AWS environment?</h1>
+      <p class="lede">Get a practical score across security, resilience, cost, operations, performance and sustainability — and see the issues worth fixing first.</p>
+      <div class="cta-row"><button class="primary" id="startBtn">Start free assessment</button><span>About 5 minutes · No AWS access required</span></div>
+      <div class="trust-grid">
+        <article><strong>6</strong><span>architecture dimensions</span></article>
+        <article><strong>21</strong><span>targeted questions</span></article>
+        <article><strong>0</strong><span>credentials required</span></article>
+      </div>
+    </section>
+
+    <section id="assessment" class="panel hidden">
+      <div class="progress-wrap"><div class="progress-meta"><span id="progressText">Question 1</span><span id="progressPct">0%</span></div><div class="progress"><div id="progressBar"></div></div></div>
+      <div id="questionCard"></div>
+    </section>
+
+    <section id="results" class="panel hidden">
+      <div class="eyebrow">YOUR RESULT</div>
+      <div class="score-hero"><div><span id="overallScore">0</span><small>/100</small></div><div><h2 id="scoreLabel">Architecture score</h2><p>Use this as a prioritisation signal, not a formal AWS Well-Architected Review.</p></div></div>
+      <div id="categoryScores" class="score-grid"></div>
+      <h3>Highest-priority findings</h3>
+      <div id="findings" class="findings"></div>
+      <div class="leadbox">
+        <div><h3>Save your result</h3><p>Enter your details to save this assessment and become an early-access customer for the detailed automated report.</p></div>
+        <form id="leadForm">
+          <div class="form-grid"><input id="name" placeholder="Name" autocomplete="name"><input id="company" placeholder="Company" autocomplete="organization"></div>
+          <input id="email" type="email" placeholder="Work email" autocomplete="email" required>
+          <label class="check"><input id="marketingConsent" type="checkbox"> <span>Send me occasional AWS architecture and cost-optimisation updates. I can unsubscribe at any time.</span></label>
+          <button class="primary" type="submit">Save my assessment</button>
+          <p id="formStatus" class="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer>Independent AWS architecture assessment prototype · Not affiliated with Amazon Web Services.</footer>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

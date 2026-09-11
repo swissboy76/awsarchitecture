@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Free AI Opportunity Assessment | CloudFIXER</title>
-  <meta name="description" content="A free plain-English AI opportunity assessment for SMEs. Find where AI could save time, improve processes and make business knowledge easier to use." />
+  <title>What can AI do for your business? | CloudFIXER</title>
+  <meta name="description" content="A free plain-English AI opportunity assessment for SMEs. Understand how work happens in your business and find where AI could save time or make knowledge easier to use." />
   <link rel="icon" href="/cloudfixer-mark.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/styles.css" />
   <style>
@@ -22,22 +22,22 @@
   <main>
     <section class="ai-hero" id="home">
       <div class="eyebrow">FREE AI OPPORTUNITY ASSESSMENT FOR SMEs</div>
-      <h1>What can AI do for your business?</h1>
-      <p class="lede">Most businesses have processes that could be faster and knowledge that could be easier to use. This short assessment helps identify where AI could save time, improve consistency and make better use of the information you already have.</p>
+      <h1>What could AI make easier in your business?</h1>
+      <p class="lede">You do not need to know anything about AI to start. We help you look at how work actually gets done — the repetitive jobs, the information people keep searching for and the things that depend too heavily on someone knowing the answer.</p>
 
       <div class="ai-benefits">
-        <article><strong>Improve processes</strong><span>Spot repetitive admin, document handling and manual work that may be suitable for AI assistance.</span></article>
-        <article><strong>Unlock knowledge</strong><span>Find where staff struggle to locate procedures, policies, product information or expertise.</span></article>
-        <article><strong>Start sensibly</strong><span>Identify opportunities worth exploring before spending money on tools or large AI projects.</span></article>
+        <article><strong>Spot repeated work</strong><span>Find the admin, handovers, document work and routine tasks that keep taking staff time.</span></article>
+        <article><strong>Find trapped knowledge</strong><span>See where useful know-how sits in people’s heads, inboxes, shared drives or scattered documents.</span></article>
+        <article><strong>Find a sensible first step</strong><span>Identify a small, useful problem worth improving before you spend money on AI tools.</span></article>
       </div>
 
-      <div class="opportunity-note"><strong>No AI knowledge required.</strong> The questions are about how your business works today, not about models, prompts or technical architecture.</div>
-      <div class="start-box"><button class="primary" id="startAi">Start my free assessment</button><small>About 5 minutes · No technical information required</small></div>
+      <div class="opportunity-note"><strong>This is about your business, not the technology.</strong> We ask what people do, where time goes and where information gets stuck. Your answers are used to identify possible improvements.</div>
+      <div class="start-box"><button class="primary" id="startAi">Show me where AI could help</button><small>About 5 minutes · No technical knowledge needed</small></div>
     </section>
 
     <section id="assessment" class="panel hidden">
       <div class="assessment-head">
-        <div><div class="eyebrow">AI OPPORTUNITY ASSESSMENT</div><h2 id="assessmentTitle">Free AI Opportunity Assessment</h2></div>
+        <div><div class="eyebrow">HOW DOES WORK HAPPEN TODAY?</div><h2 id="assessmentTitle">AI Opportunity Assessment</h2></div>
         <button class="text-btn" id="restartBtn">Start again</button>
       </div>
       <p id="assessmentDescription" class="question-help"></p>
@@ -47,24 +47,24 @@
 
     <section id="results" class="panel hidden">
       <div class="eyebrow">YOUR AI OPPORTUNITY RESULT</div>
-      <div class="score-hero"><div><span id="overallScore">0</span><small>/100</small></div><div><h2 id="scoreLabel">AI readiness</h2><p id="resultSummary"></p></div></div>
+      <div class="score-hero"><div><span id="overallScore">0</span><small>/100</small></div><div><h2 id="scoreLabel">AI opportunities</h2><p id="resultSummary"></p></div></div>
       <div id="categoryScores" class="score-grid"></div>
-      <h3>Areas worth exploring first</h3>
+      <h3>What your answers suggest</h3>
       <div id="findings" class="findings"></div>
-      <div class="result-action"><strong>Your best AI project may be much smaller than you think.</strong><span>The next step is to turn the strongest opportunities into a short list of practical use cases, expected benefits and sensible controls.</span></div>
+      <div class="result-action"><strong>The aim is not to put AI everywhere.</strong><span>The useful next step is to pick one or two problems where saving time, finding information faster or reducing dependency on key people would make a noticeable difference.</span></div>
 
       <div class="leadbox">
-        <div><h3>Save your assessment</h3><p>Tell us a little about your business so we can put the result in context and identify which opportunities may be worth exploring first.</p></div>
+        <div><h3>Save your assessment</h3><p>Tell us a little about the business and we can keep your result together with the opportunities you have identified.</p></div>
         <form id="leadForm">
           <div class="qualification">
             <label>Approximate number of employees
               <select id="employees"><option value="">Prefer not to say</option><option value="1-5">1–5</option><option value="6-20">6–20</option><option value="21-50">21–50</option><option value="51-100">51–100</option><option value="101-250">101–250</option><option value="250-plus">250+</option></select>
             </label>
-            <label>What would you most like AI to improve?
-              <select id="aiGoal"><option value="">Not sure yet</option><option value="save-time">Save staff time</option><option value="knowledge">Make business knowledge easier to use</option><option value="customers">Improve customer service</option><option value="reporting">Improve reporting / analysis</option><option value="growth">Support sales or growth</option><option value="other">Something else</option></select>
+            <label>What would make the biggest difference?
+              <select id="aiGoal"><option value="">Not sure yet</option><option value="save-time">Save staff time</option><option value="knowledge">Make business knowledge easier to use</option><option value="customers">Respond to customers faster</option><option value="reporting">Make reporting / analysis easier</option><option value="growth">Support sales or growth</option><option value="other">Something else</option></select>
             </label>
-            <label>Are you already using AI in the business?
-              <select id="aiUse"><option value="">Select an option</option><option value="none">Not really</option><option value="individual">A few staff use tools individually</option><option value="some">We have a few business uses already</option><option value="established">AI is already part of several processes</option></select>
+            <label>Are people already using AI tools at work?
+              <select id="aiUse"><option value="">Select an option</option><option value="none">Not really</option><option value="individual">A few people use them on their own</option><option value="some">We use AI for a few tasks already</option><option value="established">AI is already part of several processes</option></select>
             </label>
           </div>
           <div class="form-grid"><input id="name" placeholder="Name" autocomplete="name"><input id="company" placeholder="Company" autocomplete="organization"></div>

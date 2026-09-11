@@ -2,10 +2,10 @@ const $ = s => document.querySelector(s);
 const state = { questions: [], categories: [], index: 0, answers: {}, result: null };
 
 const options = [
-  ['yes','Yes','This is generally in place'],
-  ['partial','Partly','Some of the time / inconsistent'],
-  ['no','No','There is clear room to improve'],
-  ['unknown','Not sure','I do not know']
+  ['yes','Yes','This happens regularly'],
+  ['partial','Sometimes','It happens, but not all the time'],
+  ['no','No','Not really'],
+  ['unknown','Not sure','I would need to ask someone']
 ];
 
 async function loadAssessment(){
@@ -65,10 +65,10 @@ async function calculate(){
 }
 
 function scoreLabel(score){
-  if(score >= 80) return 'Strong foundations for practical AI';
-  if(score >= 65) return 'Good foundations, with useful opportunities';
-  if(score >= 50) return 'Several worthwhile opportunities to explore';
-  return 'Significant opportunity to improve how work and knowledge flow';
+  if(score >= 75) return 'Lots of practical opportunities to explore';
+  if(score >= 50) return 'Several useful opportunities stand out';
+  if(score >= 25) return 'A few focused opportunities are worth a look';
+  return 'Your best opportunities may be quite specific';
 }
 
 function paidOffersHtml(){
@@ -76,22 +76,22 @@ function paidOffersHtml(){
     <section class="paid-offers" aria-label="Paid CloudFIXER AI reports" style="margin-top:30px">
       <div style="margin-bottom:14px">
         <div class="eyebrow">WANT THE FULL PLAN?</div>
-        <h3 style="margin:.35rem 0;color:var(--wine-dark)">Turn these opportunities into something you can act on.</h3>
-        <p style="margin:0;color:#766d6f">Simple, low-cost reports for SMEs. No sales call, no consultancy package, no enterprise programme.</p>
+        <h3 style="margin:.35rem 0;color:var(--wine-dark)">Turn what you have just uncovered into a practical plan.</h3>
+        <p style="margin:0;color:#766d6f">We turn your answers into a prioritised list of realistic improvements for your business.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:13px">
         <article style="border:1px solid #dbc7c9;background:#fff;border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(74,31,35,.045)">
           <div class="eyebrow">MOST POPULAR</div>
           <h3 style="margin:8px 0 3px;color:var(--wine-dark)">AI Opportunity Action Plan</h3>
           <div style="font-size:2rem;font-weight:750;color:var(--wine);margin-bottom:10px">£9.99</div>
-          <p style="color:#766d6f;margin-top:0">Your strongest AI opportunities, likely business benefit, quick wins, sensible cautions and a prioritised do-now / do-next list.</p>
+          <p style="color:#766d6f;margin-top:0">Your strongest opportunities, where they sit in the business, likely benefit, quick wins and what to look at first.</p>
           <span style="display:inline-block;padding:7px 10px;border-radius:999px;background:#f5eeee;color:var(--wine);font-size:.72rem;font-weight:800">Checkout being connected</span>
         </article>
         <article style="border:1px solid var(--line);background:#faf8f7;border-radius:14px;padding:20px">
           <div class="eyebrow">GO DEEPER</div>
           <h3 style="margin:8px 0 3px;color:var(--wine-dark)">AI Roadmap</h3>
           <div style="font-size:2rem;font-weight:750;color:var(--wine-dark);margin-bottom:10px">£19.99</div>
-          <p style="color:#766d6f;margin-top:0">Everything in the Action Plan plus implementation difficulty, dependencies, suggested approaches and a simple 30 / 60 / 90-day roadmap.</p>
+          <p style="color:#766d6f;margin-top:0">Everything in the Action Plan, plus implementation difficulty, dependencies and a simple 30 / 60 / 90-day roadmap.</p>
           <span style="display:inline-block;padding:7px 10px;border-radius:999px;background:#f1eeee;color:#756c6e;font-size:.72rem;font-weight:800">Checkout being connected</span>
         </article>
       </div>
@@ -103,20 +103,20 @@ function showResults(){
   const results = $('#results');
   results.classList.remove('hidden','score-strong','score-good','score-warning','score-risk');
   results.classList.add(
-    state.result.overall >= 80 ? 'score-strong' :
-    state.result.overall >= 65 ? 'score-good' :
-    state.result.overall >= 50 ? 'score-warning' : 'score-risk'
+    state.result.overall >= 75 ? 'score-strong' :
+    state.result.overall >= 50 ? 'score-good' :
+    state.result.overall >= 25 ? 'score-warning' : 'score-risk'
   );
 
   $('#overallScore').textContent = state.result.overall;
   $('#scoreLabel').textContent = scoreLabel(state.result.overall);
-  $('#resultSummary').textContent = 'This score reflects how ready your current processes, knowledge, customer service and information are for useful AI. Lower-scoring areas are often where the most practical opportunities exist.';
+  $('#resultSummary').textContent = 'This is an opportunity score, not a test of how advanced your business is. A higher score simply means your answers revealed more repetitive work, hard-to-find knowledge or information-heavy tasks where AI or automation may be useful.';
   $('#categoryScores').innerHTML = Object.entries(state.result.scores)
     .map(([k,v]) => `<article><span>${labelFor(k)}</span><strong>${v}</strong><div class="mini"><i style="width:${v}%"></i></div></article>`)
     .join('');
 
-  const findings = state.result.findings.length ? state.result.findings : [{severity:'medium',title:'Your answers suggest a relatively mature starting point.',recommendation:'The next step would be to identify one or two targeted use cases with a clear business benefit rather than introducing AI everywhere.'}];
-  $('#findings').innerHTML = findings.map((f,i)=>`<article class="finding"><div class="rank">${i+1}</div><div><div class="severity ${f.severity}">${f.severity === 'critical' ? 'high opportunity' : f.severity === 'high' ? 'opportunity' : 'consider'}</div><h4>${f.title}</h4><p>${f.recommendation}</p></div></article>`).join('');
+  const findings = state.result.findings.length ? state.result.findings : [{severity:'low',title:'No obvious broad opportunity stood out from these questions.',recommendation:'That does not mean AI cannot help. A useful next step would be to look closely at one specific process that feels slow, repetitive or difficult to hand over.'}];
+  $('#findings').innerHTML = findings.map((f,i)=>`<article class="finding"><div class="rank">${i+1}</div><div><div class="severity ${f.severity}">${f.severity === 'high' ? 'strong opportunity' : f.severity === 'medium' ? 'worth exploring' : 'possible opportunity'}</div><h4>${f.title}</h4><p>${f.recommendation}</p></div></article>`).join('');
 
   results.querySelector('.paid-offers')?.remove();
   document.querySelector('.result-action').insertAdjacentHTML('afterend', paidOffersHtml());

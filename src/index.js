@@ -109,6 +109,7 @@ async function serveAsset(request, env, assetPath) {
   }
 
   let html = await response.text();
+  html = html.replaceAll('href="/styles.css"', 'href="/styles.css?v=20260912-2"');
   html = html.replace('</head>', `${seoMarkup(publicPath)}</head>`);
   const guides = guideSection(publicPath);
   if (guides) html = html.replace('</main>', `${guides}</main>`);

@@ -1,5 +1,6 @@
 import { getAssessment } from './questions.js';
 import { aiAssessment, scoreAiAssessment } from './aiQuestions.js';
+import { seoPages, seoMarkup, guideSection } from './seo.js';
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
@@ -92,10 +93,28 @@ function legacyScores(mode, scores) {
   };
 }
 
-async function serveAsset(request, env, pathname) {
+function normalisePath(pathname) {
+  return pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+}
+
+async function serveAsset(request, env, assetPath) {
+  const publicPath = normalisePath(new URL(request.url).pathname);
   const url = new URL(request.url);
-  url.pathname = pathname;
-  return env.ASSETS.fetch(new Request(url.toString(), request));
+  url.pathname = assetPath;
+  const response = await env.ASSETS.fetch(new Request(url.toString(), request));
+
+  if (!seoPages[publicPath] || !response.ok || !response.headers.get('content-type')?.includes('text/html')) {
+    return response;
+  }
+
+  let html = await response.text();
+  html = html.replace('</head>', `${seoMarkup(publicPath)}</head>`);
+  const guides = guideSection(publicPath);
+  if (guides) html = html.replace('</main>', `${guides}</main>`);
+
+  const headers = new Headers(response.headers);
+  headers.delete('content-length');
+  return new Response(html, { status: response.status, headers });
 }
 
 const marketingPages = {
@@ -180,13 +199,14 @@ export default {
 
     if (url.pathname.startsWith('/api/')) return json({ error: 'Not found' }, 404);
 
-    if (url.pathname === '/' || url.pathname === '/home') return serveAsset(request, env, '/home.html');
+    if (url.pathname === '/home') return Response.redirect('https://cloudfixer.org/', 301);
+    if (url.pathname === '/') return serveAsset(request, env, '/home.html');
     if (url.pathname === '/aws' || url.pathname === '/aws/') return serveAsset(request, env, '/index.html');
     if (url.pathname === '/ai' || url.pathname === '/ai/') return serveAsset(request, env, '/ai.html');
     if (url.pathname === '/cloud-readiness' || url.pathname === '/cloud-readiness/') return serveAsset(request, env, '/cloud-readiness.html');
     if (url.pathname === '/cloud-migration' || url.pathname === '/cloud-migration/') return serveAsset(request, env, '/cloud-migration.html');
 
-    const marketingPath = url.pathname.endsWith('/') ? url.pathname.slice(0, -1) : url.pathname;
+    const marketingPath = normalisePath(url.pathname);
     if (marketingPages[marketingPath]) return serveAsset(request, env, marketingPages[marketingPath]);
 
     return env.ASSETS.fetch(request);

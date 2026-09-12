@@ -6,6 +6,7 @@ export const seoPages = {
   '/aws': ['Free AWS Cloud Health Check for SMEs | CloudFIXER','Check your AWS environment for security, backup, cost and resilience risks with a free plain-English cloud health assessment built by AWS and cloud professionals.'],
   '/cloud-readiness': ['Cloud Readiness for SMEs | CloudFIXER','Understand whether moving to the cloud makes business sense, what should move, what should stay and what to consider before committing to migration.'],
   '/cloud-migration': ['Cloud Migration for SMEs | CloudFIXER','Practical cloud migration planning for SMEs, with a focus on controlled risk, sensible sequencing and keeping the business running.'],
+  '/sustainable-cloud-ai': ['Sustainable Cloud & AI Architecture | CloudFIXER','Design cloud, AI and data platforms around lower-carbon infrastructure, efficient compute, sustainable colocation, carbon-aware workload placement and measurable operational impact.'],
   '/ai-repetitive-admin': ['Use AI to Reduce Repetitive Admin in a Small Business | CloudFIXER','Find repetitive admin, copying, checking and document work that AI or automation may be able to reduce in your small business.'],
   '/ai-business-knowledge': ['Use AI to Make Business Knowledge Easier to Find | CloudFIXER','Explore how AI can help staff find policies, procedures, answers and business knowledge without relying on one key person.'],
   '/ai-customer-service': ['AI for Customer Service in Small Businesses | CloudFIXER','Find practical ways AI can help SMEs answer repeated customer questions, prepare responses and reduce routine customer-service workload.'],
@@ -32,6 +33,10 @@ const awsGuides = [
   ['/aws-backup-risk','Check AWS backup and recovery risk'],
   ['/aws-security-check','Check AWS security basics'],
   ['/cloud-readiness-small-business','Is your small business cloud-ready?']
+];
+
+const sustainabilityGuides = [
+  ['/sustainable-cloud-ai','Sustainable cloud & AI architecture']
 ];
 
 function esc(v=''){
@@ -65,16 +70,20 @@ export function guideSection(pathname){
   let intro;
   if(pathname === '/'){
     heading = 'Practical guides for common SME problems';
-    intro = 'Explore a specific cloud or AI problem, then use a free assessment to see what matters most in your business.';
-    groups = [['AI & automation',aiGuides],['AWS & cloud',awsGuides]];
+    intro = 'Explore a specific cloud, AI or sustainability problem, then use a free assessment or specialist review to see what matters most in your business.';
+    groups = [['AI & automation',aiGuides],['AWS & cloud',awsGuides],['Sustainable technology',sustainabilityGuides]];
   } else if(pathname === '/ai' || pathname.startsWith('/ai-')){
     heading = 'More practical AI guides for SMEs';
     intro = 'Explore another common business problem or go straight to the free AI Opportunity Assessment.';
-    groups = [['AI & automation',aiGuides.filter(([href])=>href!==pathname)]];
+    groups = [['AI & automation',aiGuides.filter(([href])=>href!==pathname)],['Sustainable technology',sustainabilityGuides]];
   } else if(pathname === '/aws' || pathname.startsWith('/aws-') || pathname === '/cloud-readiness-small-business'){
     heading = 'More practical AWS and cloud guides';
     intro = 'Explore another common cloud problem or use the free AWS health check to see what needs attention first.';
-    groups = [['AWS & cloud',awsGuides.filter(([href])=>href!==pathname)]];
+    groups = [['AWS & cloud',awsGuides.filter(([href])=>href!==pathname)],['Sustainable technology',sustainabilityGuides]];
+  } else if(pathname === '/sustainable-cloud-ai'){
+    heading = 'Related CloudFIXER services';
+    intro = 'Sustainability works best when it is considered alongside cost, resilience, security, migration and AI architecture.';
+    groups = [['AWS & cloud',awsGuides],['AI & automation',aiGuides.slice(0,2)]];
   } else {
     return '';
   }

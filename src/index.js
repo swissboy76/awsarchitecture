@@ -109,13 +109,15 @@ async function serveAsset(request, env, assetPath) {
   }
 
   let html = await response.text();
-  html = html.replaceAll('href="/styles.css"', 'href="/styles.css?v=20260912-2"');
-  html = html.replace('</head>', `${seoMarkup(publicPath)}</head>`);
+  html = html.replaceAll('href="/styles.css"', 'href="/styles.css?v=20260912-3"');
+  html = html.replace('</head>', `<link rel="stylesheet" href="/title-scale.css?v=20260912-1" />${seoMarkup(publicPath)}</head>`);
+  if (publicPath === '/') html = html.replace('</body>', '<script src="/home-sustainability.js?v=20260912-1"></script></body>');
   const guides = guideSection(publicPath);
   if (guides) html = html.replace('</main>', `${guides}</main>`);
 
   const headers = new Headers(response.headers);
   headers.delete('content-length');
+  headers.set('cache-control', 'no-cache');
   return new Response(html, { status: response.status, headers });
 }
 

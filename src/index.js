@@ -98,6 +98,19 @@ async function serveAsset(request, env, pathname) {
   return env.ASSETS.fetch(new Request(url.toString(), request));
 }
 
+const marketingPages = {
+  '/ai-repetitive-admin': '/ai-repetitive-admin.html',
+  '/ai-business-knowledge': '/ai-business-knowledge.html',
+  '/ai-customer-service': '/ai-customer-service.html',
+  '/ai-reporting': '/ai-reporting.html',
+  '/ai-small-business': '/ai-small-business.html',
+  '/aws-health-check': '/aws-health-check.html',
+  '/aws-cost-review': '/aws-cost-review.html',
+  '/aws-backup-risk': '/aws-backup-risk.html',
+  '/aws-security-check': '/aws-security-check.html',
+  '/cloud-readiness-small-business': '/cloud-readiness-small-business.html'
+};
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -172,6 +185,9 @@ export default {
     if (url.pathname === '/ai' || url.pathname === '/ai/') return serveAsset(request, env, '/ai.html');
     if (url.pathname === '/cloud-readiness' || url.pathname === '/cloud-readiness/') return serveAsset(request, env, '/cloud-readiness.html');
     if (url.pathname === '/cloud-migration' || url.pathname === '/cloud-migration/') return serveAsset(request, env, '/cloud-migration.html');
+
+    const marketingPath = url.pathname.endsWith('/') ? url.pathname.slice(0, -1) : url.pathname;
+    if (marketingPages[marketingPath]) return serveAsset(request, env, marketingPages[marketingPath]);
 
     return env.ASSETS.fetch(request);
   }

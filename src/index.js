@@ -1,6 +1,7 @@
 import { getAssessment } from './questions.js';
 import { aiAssessment, scoreAiAssessment } from './aiQuestions.js';
 import { seoPages, seoMarkup, guideSection } from './seo.js';
+import { handleAdminRequest } from './admin.js';
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
@@ -133,6 +134,10 @@ const marketingPages = {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname.startsWith('/api/admin/')) {
+      return handleAdminRequest(request, env, url);
+    }
 
     if (url.pathname === '/api/questions' && request.method === 'GET') {
       const requestedMode = url.searchParams.get('mode') || 'simple';

@@ -1,0 +1,9 @@
+.hero>h1,.service-hero h1{font-size:clamp(2.65rem,6.5vw,5.55rem)!important}
+.home-hero h1{font-size:clamp(3.45rem,6.35vw,6.25rem)!important}
+.ai-hero h1{font-size:clamp(3.1rem,6.3vw,6rem)!important}
+.section-head h2,.section>h2{font-size:clamp(2.15rem,3.8vw,3.55rem)!important}
+.service-card h3{font-size:1.8rem!important}
+.why-lead h2{font-size:2.35rem!important}
+.cta-band h2,.cta h2{font-size:1.95rem!important}
+@media(max-width:760px){.hero>h1,.service-hero h1{font-size:3.05rem!important}.home-hero h1{font-size:3.75rem!important}.ai-hero h1{font-size:3rem!important}}
+@media(max-width:520px){.hero>h1,.service-hero h1{font-size:2.75rem!important}.home-hero h1{font-size:3rem!important}.ai-hero h1{font-size:2.8rem!important}}

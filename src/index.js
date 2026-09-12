@@ -128,7 +128,8 @@ const marketingPages = {
   '/aws-cost-review': '/aws-cost-review.html',
   '/aws-backup-risk': '/aws-backup-risk.html',
   '/aws-security-check': '/aws-security-check.html',
-  '/cloud-readiness-small-business': '/cloud-readiness-small-business.html'
+  '/cloud-readiness-small-business': '/cloud-readiness-small-business.html',
+  '/sustainable-cloud-ai': '/sustainable-cloud-ai.html'
 };
 
 export default {

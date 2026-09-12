@@ -70,5 +70,15 @@ main{max-width:1120px;margin:auto;padding:42px 28px 90px;position:relative;z-ind
 .result-action{margin-top:28px;border-left:3px solid var(--wine);background:#faf6f5;padding:19px 20px;border-radius:0 10px 10px 0;display:flex;flex-direction:column;gap:4px}.result-action strong{color:var(--wine-dark)}.result-action span{color:#776d6f}
 .leadbox{margin-top:34px;padding:28px;background:linear-gradient(135deg,#f8f3f3,#fcfaf9 65%,#f4f1f0);border:1px solid #e3d7d8;border-radius:15px;display:grid;grid-template-columns:1fr 1.2fr;gap:26px}.leadbox h3{margin-top:0;color:var(--wine-dark)}.leadbox input,.leadbox select{width:100%;padding:12px;border:1px solid #d8cdce;border-radius:8px;font:inherit;margin-bottom:10px;background:white;outline:none;color:var(--ink)}.leadbox input:focus,.leadbox select:focus{border-color:#a9777b;box-shadow:0 0 0 3px rgba(99,42,46,.07)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.qualification{display:grid;gap:2px;margin-bottom:10px}.qualification label{font-size:.81rem;font-weight:740;color:#73696b}.qualification select{margin-top:5px}.check{display:flex;align-items:flex-start;gap:8px;font-size:.81rem;color:#7b7173;margin:4px 0 14px}.check input{width:auto;margin-top:4px}.status{font-size:.87rem;margin-bottom:0}.success{color:#5e7e67}.error{color:#9b4448}
 footer{text-align:center;color:#968c8e;font-size:.78rem;padding:38px 24px 44px;letter-spacing:.015em}footer strong{color:var(--wine-dark);font-weight:760}
-@media(max-width:760px){main{padding-top:18px}.hero{padding-top:38px}.hero:after{display:none}.path-grid,.trust-grid,.score-grid,.leadbox,.form-grid{grid-template-columns:1fr}.panel{padding:25px}.answer{flex-direction:column;gap:2px}.score-hero{align-items:flex-start;flex-direction:column}.hero>h1{font-size:3.5rem}.assessment-head{flex-direction:column}.text-btn{padding-left:0}.brand-promise{margin-top:22px}}
-@media(max-width:520px){.brand-product{display:none}.brand-name{font-size:1.22rem}.brand-icon{width:48px;height:38px}.nav{padding-left:20px;padding-right:20px}.pill{font-size:.61rem;letter-spacing:.1em}.hero>h1{font-size:3.1rem}}
+
+/* Slightly tighter title scale across the site. Page-specific styles use larger display sizes, so these important overrides keep the visual hierarchy consistent without changing each template. */
+.hero>h1{font-size:clamp(2.65rem,7.2vw,5.9rem)!important}
+.home-hero h1{font-size:clamp(3.5rem,6.7vw,6.6rem)!important}
+.section-head h2,.section>h2{font-size:clamp(2.15rem,4vw,3.6rem)!important}
+.service-card h3{font-size:1.8rem!important}
+.why-lead h2{font-size:2.35rem!important}
+.cta-band h2,.cta h2{font-size:1.95rem!important}
+.panel h2{font-size:1.85rem}
+
+@media(max-width:760px){main{padding-top:18px}.hero{padding-top:38px}.hero:after{display:none}.path-grid,.trust-grid,.score-grid,.leadbox,.form-grid{grid-template-columns:1fr}.panel{padding:25px}.answer{flex-direction:column;gap:2px}.score-hero{align-items:flex-start;flex-direction:column}.hero>h1{font-size:3.1rem!important}.assessment-head{flex-direction:column}.text-btn{padding-left:0}.brand-promise{margin-top:22px}.home-hero h1{font-size:3.8rem!important}}
+@media(max-width:520px){.brand-product{display:none}.brand-name{font-size:1.22rem}.brand-icon{width:48px;height:38px}.nav{padding-left:20px;padding-right:20px}.pill{font-size:.61rem;letter-spacing:.1em}.hero>h1{font-size:2.75rem!important}.home-hero h1{font-size:3rem!important}}

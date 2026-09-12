@@ -64,10 +64,15 @@ export function seoMarkup(pathname){
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n`;
 }
 
+function waterSection(){
+  return `<section aria-label="Water-efficient data centre cooling" style="max-width:1120px;margin:46px auto 0;padding:0 28px"><div style="background:linear-gradient(135deg,#f3f8f5,#ffffff);border:1px solid #dbe8df;border-radius:20px;padding:30px;box-shadow:0 12px 30px rgba(36,75,60,.05)"><div style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:#3d6d58;margin-bottom:9px">WATER & COOLING</div><h2 style="color:#244b3c;font-size:2rem;line-height:1.05;margin:0 0 10px;letter-spacing:-.04em">Cooling computers does not have to consume water.</h2><p style="color:#65706a;margin:0 0 20px;max-width:840px">Liquid cooling and water consumption are not the same thing. In a genuinely closed-loop system the coolant is recirculated. The key design question is how heat is rejected at facility level: a closed IT loop can still feed an evaporative tower, so CloudFIXER would preferentially assess facilities using closed-loop cooling with non-evaporative or dry heat rejection where practical.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px"><div style="background:#fff;border:1px solid #dfe9e3;border-radius:14px;padding:17px"><strong style="display:block;color:#244b3c;margin-bottom:5px">Closed-loop design</strong><span style="color:#6a746f;font-size:.9rem">Coolant is reused rather than continually replaced.</span></div><div style="background:#fff;border:1px solid #dfe9e3;border-radius:14px;padding:17px"><strong style="display:block;color:#244b3c;margin-bottom:5px">Non-evaporative heat rejection</strong><span style="color:#6a746f;font-size:.9rem">Prefer dry coolers or equivalent designs that do not depend on routine evaporation.</span></div><div style="background:#fff;border:1px solid #dfe9e3;border-radius:14px;padding:17px"><strong style="display:block;color:#244b3c;margin-bottom:5px">Measured WUE</strong><span style="color:#6a746f;font-size:.9rem">Ask for actual Water Usage Effectiveness, not simply a marketing label.</span></div><div style="background:#fff;border:1px solid #dfe9e3;border-radius:14px;padding:17px"><strong style="display:block;color:#244b3c;margin-bottom:5px">Water source & discharge</strong><span style="color:#6a746f;font-size:.9rem">Check potable vs reclaimed water, top-up, blowdown and wastewater requirements.</span></div></div></div></section>`;
+}
+
 export function guideSection(pathname){
   let groups;
   let heading;
   let intro;
+  let extra = '';
   if(pathname === '/'){
     heading = 'Practical guides for common SME problems';
     intro = 'Explore a specific cloud, AI or sustainability problem, then use a free assessment or specialist review to see what matters most in your business.';
@@ -84,9 +89,10 @@ export function guideSection(pathname){
     heading = 'Related CloudFIXER services';
     intro = 'Sustainability works best when it is considered alongside cost, resilience, security, migration and AI architecture.';
     groups = [['AWS & cloud',awsGuides],['AI & automation',aiGuides.slice(0,2)]];
+    extra = waterSection();
   } else {
     return '';
   }
   const body = groups.map(([label,links])=>`<div><div style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:#8c565b;margin-bottom:10px">${label}</div><div style="display:grid;gap:8px">${links.map(([href,text])=>`<a href="${href}" style="color:#42191d;text-decoration:none;font-weight:720">${esc(text)} <span aria-hidden="true">→</span></a>`).join('')}</div></div>`).join('');
-  return `<section aria-label="CloudFIXER guides" style="max-width:1120px;margin:46px auto 0;padding:0 28px"><div style="background:linear-gradient(135deg,#fff,#faf6f5 62%,#eef5f3);border:1px solid #e8dfe0;border-radius:20px;padding:28px;box-shadow:0 12px 30px rgba(66,25,29,.045)"><h2 style="color:#42191d;font-size:1.8rem;line-height:1.08;margin:0 0 7px;letter-spacing:-.035em">${heading}</h2><p style="color:#756c6e;margin:0 0 22px;max-width:760px">${intro}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px">${body}</div></div></section>`;
+  return `${extra}<section aria-label="CloudFIXER guides" style="max-width:1120px;margin:46px auto 0;padding:0 28px"><div style="background:linear-gradient(135deg,#fff,#faf6f5 62%,#eef5f3);border:1px solid #e8dfe0;border-radius:20px;padding:28px;box-shadow:0 12px 30px rgba(66,25,29,.045)"><h2 style="color:#42191d;font-size:1.8rem;line-height:1.08;margin:0 0 7px;letter-spacing:-.035em">${heading}</h2><p style="color:#756c6e;margin:0 0 22px;max-width:760px">${intro}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px">${body}</div></div></section>`;
 }

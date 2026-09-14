@@ -2,6 +2,7 @@ import { getAssessment } from './questions.js';
 import { aiAssessment, scoreAiAssessment } from './aiQuestions.js';
 import { seoPages, seoMarkup, guideSection } from './seo.js';
 import { handleAdminRequest } from './admin.js';
+import { createCheckout, handleStripeWebhook, getOrderStatus, getPaidReport } from './payments.js';
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
@@ -139,6 +140,22 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.pathname === '/api/stripe/webhook' && request.method === 'POST') {
+      return handleStripeWebhook(request, env);
+    }
+
+    if (url.pathname === '/api/checkout' && request.method === 'POST') {
+      return createCheckout(request, env, scoreAssessment, legacyScores);
+    }
+
+    if (url.pathname === '/api/order-status' && request.method === 'GET') {
+      return getOrderStatus(request, env);
+    }
+
+    if (url.pathname === '/api/paid-report' && request.method === 'GET') {
+      return getPaidReport(request, env);
+    }
+
     if (url.pathname.startsWith('/api/admin/')) {
       return handleAdminRequest(request, env, url);
     }
@@ -214,6 +231,8 @@ export default {
     if (url.pathname === '/ai' || url.pathname === '/ai/') return serveAsset(request, env, '/ai.html');
     if (url.pathname === '/cloud-readiness' || url.pathname === '/cloud-readiness/') return serveAsset(request, env, '/cloud-readiness.html');
     if (url.pathname === '/cloud-migration' || url.pathname === '/cloud-migration/') return serveAsset(request, env, '/cloud-migration.html');
+    if (url.pathname === '/payment-success' || url.pathname === '/payment-success/') return serveAsset(request, env, '/payment-success.html');
+    if (url.pathname === '/paid-report' || url.pathname === '/paid-report/') return serveAsset(request, env, '/paid-report.html');
 
     const marketingPath = normalisePath(url.pathname);
     if (marketingPages[marketingPath]) return serveAsset(request, env, marketingPages[marketingPath]);

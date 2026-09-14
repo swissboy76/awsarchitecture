@@ -115,14 +115,14 @@ function paidOffersHtml(){
           <h3 style="margin:8px 0 3px;color:var(--wine-dark)">AI Opportunity Action Plan</h3>
           <div style="font-size:2rem;font-weight:750;color:var(--wine);margin-bottom:10px">£9.99</div>
           <p style="color:#766d6f;margin-top:0">Your strongest opportunities, where they sit in the business, likely benefit, quick wins and what to look at first.</p>
-          <span style="display:inline-block;padding:7px 10px;border-radius:999px;background:#f5eeee;color:var(--wine);font-size:.72rem;font-weight:800">Checkout being connected</span>
+          <button class="primary buy-report" type="button" data-product="ai_action_plan">Buy and unlock instantly</button>
         </article>
         <article style="border:1px solid var(--line);background:#faf8f7;border-radius:14px;padding:20px">
           <div class="eyebrow">GO DEEPER</div>
           <h3 style="margin:8px 0 3px;color:var(--wine-dark)">AI Roadmap</h3>
           <div style="font-size:2rem;font-weight:750;color:var(--wine-dark);margin-bottom:10px">£19.99</div>
           <p style="color:#766d6f;margin-top:0">Everything in the Action Plan, plus implementation difficulty, dependencies and a simple 30 / 60 / 90-day roadmap.</p>
-          <span style="display:inline-block;padding:7px 10px;border-radius:999px;background:#f1eeee;color:#756c6e;font-size:.72rem;font-weight:800">Checkout being connected</span>
+          <button class="secondary buy-report" type="button" data-product="ai_roadmap">Buy AI roadmap</button>
         </article>
       </div>
     </section>`;
@@ -154,7 +154,33 @@ function showResults(){
 
   results.querySelector('.paid-offers')?.remove();
   document.querySelector('.result-action').insertAdjacentHTML('afterend', paidOffersHtml());
+  document.querySelectorAll('.buy-report').forEach(button => button.addEventListener('click', () => startCheckout(button)));
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function startCheckout(button){
+  const original=button.textContent;
+  button.disabled=true;
+  button.textContent='Opening secure checkout…';
+  try{
+    const response=await fetch('/api/checkout',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({
+        productKey:button.dataset.product,
+        mode:'ai',
+        answers:state.answers,
+        email:$('#email')?.value||''
+      })
+    });
+    const data=await response.json();
+    if(!response.ok||!data.checkoutUrl) throw new Error(data.error||'Unable to start checkout.');
+    location.href=data.checkoutUrl;
+  }catch(error){
+    button.disabled=false;
+    button.textContent=original;
+    alert(error.message);
+  }
 }
 
 async function start(){

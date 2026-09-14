@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Your report | CloudFIXER</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/cloudfixer-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .report-shell{max-width:940px;margin:28px auto;padding:22px}.report-head{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:22px}.report-head img{width:280px;max-width:60vw}
+    .report-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,48px);box-shadow:0 18px 50px rgba(74,31,35,.07)}.report-card h1,.report-card h2{color:var(--wine-dark)}
+    .report-score{display:inline-flex;align-items:baseline;gap:6px;background:#f7f0f0;color:var(--wine);padding:14px 20px;border-radius:14px;font-size:2.4rem;font-weight:800}.report-score small{font-size:.85rem}
+    .priority{display:grid;grid-template-columns:44px 1fr;gap:14px;border-top:1px solid var(--line);padding:20px 0}.priority-number{width:38px;height:38px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-weight:800}.priority h3{margin:0 0 6px}.priority p{margin:0;color:#665e60}
+    .roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.roadmap article{background:#faf7f6;border:1px solid var(--line);border-radius:12px;padding:16px}.roadmap strong{color:var(--wine)}
+    .note{margin-top:28px;color:#766d6f;font-size:.86rem}.error{color:#8d2330}.print{border:1px solid var(--wine);background:#fff;color:var(--wine);border-radius:999px;padding:10px 16px;font-weight:750;cursor:pointer}
+    @media print{.print{display:none}.report-shell{margin:0;max-width:none}.report-card{box-shadow:none;border:0}}
+  </style>
+</head>
+<body>
+<main class="report-shell">
+  <header class="report-head"><a href="/"><img src="/cloudfixer-logo.svg" alt="CloudFIXER"></a><button class="print" onclick="print()">Save / print PDF</button></header>
+  <section class="report-card" id="report"><p>Loading your secured report…</p></section>
+</main>
+<script>
+const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+(async()=>{
+  const root=document.getElementById('report'),token=new URLSearchParams(location.search).get('token');
+  if(!token){root.innerHTML='<h1>Invalid report link</h1><p class="error">This report link is incomplete.</p>';return;}
+  try{
+    const response=await fetch('/api/paid-report?token='+encodeURIComponent(token),{cache:'no-store'});
+    const data=await response.json();
+    if(!response.ok) throw new Error(data.error||'Unable to load report');
+    document.title=data.title+' | CloudFIXER';
+    const priorities=(data.priorities||[]).map(item=>'<article class="priority"><div class="priority-number">'+esc(item.priority)+'</div><div><div class="eyebrow">'+esc(item.severity||'priority')+'</div><h3>'+esc(item.title)+'</h3><p>'+esc(item.recommendation)+'</p></div></article>').join('');
+    const roadmap=(data.roadmap||[]).length?'<h2>Your improvement roadmap</h2><div class="roadmap">'+data.roadmap.map(item=>'<article><strong>'+esc(item.period)+'</strong><p>'+esc(item.action)+'</p></article>').join('')+'</div>':'';
+    root.innerHTML='<div class="eyebrow">'+esc(data.assessmentType)+'</div><h1>'+esc(data.title)+'</h1><div class="report-score">'+esc(data.overall)+' <small>/ 100 assessment score</small></div><h2>Executive summary</h2><p>'+esc(data.executiveSummary)+'</p><h2>Prioritised actions</h2>'+priorities+roadmap+'<p class="note">'+esc(data.note)+'</p>';
+  }catch(error){root.innerHTML='<h1>Report unavailable</h1><p class="error">'+esc(error.message)+'</p><p>If you have just paid, return to the payment confirmation page and try again shortly.</p>';}
+})();
+</script>
+</body>
+</html>

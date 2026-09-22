@@ -3,6 +3,12 @@
   "name": "awsarchitecture",
   "main": "src/index.js",
   "compatibility_date": "2026-09-01",
+  "secrets": {
+    "required": [
+      "STRIPE_SECRET_KEY",
+      "STRIPE_WEBHOOK_SECRET"
+    ]
+  },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
